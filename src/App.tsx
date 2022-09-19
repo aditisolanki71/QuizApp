@@ -8,7 +8,7 @@ type AnswerObject = {
   question: string;
   answer: string;
   correct: boolean;
-  correctAnwer: string;
+  correctAnswer: string;
 }
 const TOTAL_QUESTIONS = 10;
 function App() {
@@ -38,14 +38,40 @@ function App() {
   }
   //Trigger, whn user select answer
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-
+      if(!gameOver) {
+        //get users answer
+        const answer = e.currentTarget.value;
+        console.log("answer",answer)
+        //check answer against correct answer
+        const isCorrect = questions[number].correct_answer === answer;
+        if(isCorrect) {
+          setScore(prev => prev + 1);
+          //save answer in the array for user answers
+          const answerObject = {
+            question: questions[number].question,
+            answer,
+            correct: isCorrect,
+            correctAnswer: questions[number].correct_answer
+          };
+          setUserAnswers((prev) => [...prev, answerObject ]);
+        }
+      }
   }
 
   //whn user click on next que
   const nextQuestion = () => {
-
+    //move on the next question if not the last question
+    const nextQuestion = number + 1;
+    if(nextQuestion === TOTAL_QUESTIONS + 1) {
+      setGameOver(true)
+    }
+    else {
+      setNumber(nextQuestion);
+    }
   }
   console.log("loading is",loading,gameOver);
+  console.log("user ans",userAnswers.length, number)
+  console.log("hello",!gameOver , !loading , userAnswers.length === number + 1 , number !== TOTAL_QUESTIONS - 1 )
   return (
      <div className="App">
         <h1>React Quiz App</h1>

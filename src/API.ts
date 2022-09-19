@@ -1,3 +1,4 @@
+import { shuffleArray } from "./utils"
 export type Question = {
    category: string;
    type: string;
@@ -6,6 +7,8 @@ export type Question = {
    correct_answer: string;
    incorrect_answers: string[];
 }
+
+export type QuestionState = Question & { answers: string[] }
 export enum Difficulty {
    EASY = "easy",
    MEDIUM = "medium",
@@ -48,6 +51,36 @@ export const fetchQuestions = async(
    //       },
    //       // ...10{}
    //   ]
-
+      const updatedData = data.results.map((question : Question) =>(
+         {
+            ...question,
+            answers: shuffleArray([
+               ...question.incorrect_answers, 
+               question.correct_answer
+            ])
+         }
+      ));
+      console.log("Temp is",updatedData);
+   //    output = [
+   //       {
+   //           "category": "Entertainment: Film",
+   //           "type": "multiple",
+   //           "difficulty": "easy",
+   //           "question": "Who played Deputy Marshal Samuel Gerard in the 1993 film &quot;The Fugitive&quot;?",
+   //           "correct_answer": "Tommy Lee Jones",
+   //           "incorrect_answers": [
+   //               "Harrison Ford",
+   //               "Harvey Keitel",
+   //               "Martin Landau"
+   //           ],
+   //           "answers": [
+   //               "Martin Landau",
+   //               "Tommy Lee Jones",
+   //               "Harrison Ford",
+   //               "Harvey Keitel"
+   //           ]
+   //       }
+   //   ]
+      return updatedData;
 
 }

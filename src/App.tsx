@@ -22,7 +22,6 @@ function App() {
   const [gameOver,setGameOver] = useState(true);
 
   console.log(fetchQuestions(TOTAL_QUESTIONS,Difficulty.EASY));
-  console.log("questions",questions);
   //when start quiz, this fun will be fire up
   const startTrivia = async () => {
     setLoading(true);
@@ -42,7 +41,6 @@ function App() {
       if(!gameOver) {
         //get users answer
         const answer = e.currentTarget.value;
-        console.log("answer",answer)
         //check answer against correct answer
         const isCorrect = questions[number].correct_answer === answer;
         if(isCorrect) {
@@ -70,21 +68,18 @@ function App() {
       setNumber(nextQuestion);
     }
   }
-  console.log("loading is",loading,gameOver);
-  console.log("user ans",userAnswers.length, number)
-  console.log("hello",!gameOver , !loading , userAnswers.length === number + 1 , number !== TOTAL_QUESTIONS - 1 )
   return (
 
      <>
      <GlobalStyle />
-<Wrapper>
+      <Wrapper>
         <h1>React Quiz App</h1>
         {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
         <button className="start" onClick={startTrivia}>
           Start
         </button>
         ) : null }
-        {!gameOver ? (<p className="score">Score:-</p>) : null }
+        {!gameOver ? (<p className="score">Score:- {score}</p>) : null }
         {loading ? (<p>Loading questions...</p>) : null}
         {!loading && !gameOver ? 
           (

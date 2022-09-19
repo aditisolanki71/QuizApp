@@ -17,7 +17,6 @@ type ButtonWrapperProps = {
   correct: boolean;
   userClicked: boolean;
 };
-
 export const ButtonWrapper = styled.div<ButtonWrapperProps>`
   transition: all 0.3s ease;
   :hover {
@@ -35,6 +34,7 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
         ? 'linear-gradient(90deg, #56FFA4, #59BC86)'
         : !correct && userClicked
         ? 'linear-gradient(90deg, #FF5656, #C16868)'
+        // ? "red"
         : 'linear-gradient(90deg, #56ccff, #6eafb4)'};
     border: 3px solid #ffffff;
     box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.1);

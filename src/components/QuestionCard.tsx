@@ -26,7 +26,8 @@ const QuestionCard: React.FC<questionCardProps>= ({
       <p dangerouslySetInnerHTML={{ __html: question }} />
          <div>
             {answers.map(answer => (
-               <ButtonWrapper   key={answer}
+               <ButtonWrapper   
+               key={answer}
                correct={userAnswer?.correctAnswer === answer}
                userClicked={userAnswer?.answer === answer}
                >
